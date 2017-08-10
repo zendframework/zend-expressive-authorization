@@ -7,16 +7,25 @@
 
 namespace ZendTest\Expressive\Authorization;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
 use PHPUnit\Framework\TestCase;
-use Zend\Permissions\Rbac\Rbac;
+use Prophecy\Argument;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Zend\Diactoros\Response\EmptyResponse;
 use Zend\Expressive\Authorization\AuthorizationMiddleware;
 use Zend\Expressive\Authorization\MiddlewareAssertionInterface;
+use Zend\Expressive\Router\RouteResult;
+use Zend\Permissions\Rbac\Rbac;
+
 
 class AuthorizationMiddlewareTest extends TestCase
 {
+
     protected function setUp()
     {
         $this->rbac = $this->prophesize(Rbac::class);
+        $this->request = $this->prophesize(Request::class);
+        $this->delegate = $this->prophesize(DelegateInterface::class);
     }
 
     public function testConstructorWithoutAssertion()
@@ -38,21 +47,136 @@ class AuthorizationMiddlewareTest extends TestCase
 
     public function testProcessWithoutUserRole()
     {
+        $middleware = new AuthorizationMiddleware($this->rbac->reveal());
+
+        $this->request->getAttribute('USER_ROLE', false)->willReturn(false);
+
+        $response = $middleware->process(
+            $this->request->reveal(),
+            $this->delegate->reveal()
+        );
+
+        $this->assertInstanceOf(EmptyResponse::class, $response);
+        $this->assertEquals(401, $response->getStatusCode());
     }
 
-    public function testProcessWithourRouteResult()
+    /**
+     * @expectedException Zend\Expressive\Authorization\Exception\RuntimeException
+     */
+    public function testProcessWithoutRouteResult()
     {
+        $middleware = new AuthorizationMiddleware($this->rbac->reveal());
+
+        $this->request->getAttribute('USER_ROLE', false)->willReturn(true);
+        $this->request->getAttribute(RouteResult::class, false)->willReturn(false);
+
+        $response = $middleware->process(
+            $this->request->reveal(),
+            $this->delegate->reveal()
+        );
     }
 
-    public function testProcessWithoutAssertion()
+    public function testProcessGrantWithoutAssertion()
     {
+        $this->rbac->isGranted('user', 'home', null)->willReturn(true);
+        $this->delegate->process(Argument::any())->willReturn(true);
+
+        $middleware = new AuthorizationMiddleware($this->rbac->reveal());
+
+        $this->request->getAttribute('USER_ROLE', false)->willReturn('user');
+
+        $routeResult = $this->prophesize(RouteResult::class);
+        $routeResult->getMatchedRouteName()->willReturn('home');
+
+        $this->request->getAttribute(RouteResult::class, false)
+                      ->willReturn($routeResult->reveal());
+
+        $response = $middleware->process(
+            $this->request->reveal(),
+            $this->delegate->reveal()
+        );
+        $this->assertTrue($response);
     }
 
-    public function testProcessWithAssertion()
+    public function testProcessNoGrantWithoutAssertion()
     {
+        $this->rbac->isGranted('user', 'home', null)->willReturn(false);
+        $this->delegate->process(Argument::any())->willReturn(true);
+
+        $middleware = new AuthorizationMiddleware($this->rbac->reveal());
+
+        $this->request->getAttribute('USER_ROLE', false)->willReturn('user');
+
+        $routeResult = $this->prophesize(RouteResult::class);
+        $routeResult->getMatchedRouteName()->willReturn('home');
+
+        $this->request->getAttribute(RouteResult::class, false)
+                      ->willReturn($routeResult->reveal());
+
+        $response = $middleware->process(
+            $this->request->reveal(),
+            $this->delegate->reveal()
+        );
+        $this->assertInstanceOf(EmptyResponse::class, $response);
+        $this->assertEquals(403, $response->getStatusCode());
     }
 
-    public function testProcessWithNoGrant()
+    public function testProcessGrantWithAssertion()
     {
+        $assertion = $this->prophesize(MiddlewareAssertionInterface::class);
+        $this->rbac->isGranted('user', 'home', $assertion->reveal())->willReturn(true);
+        $this->delegate->process(Argument::any())->willReturn(true);
+
+        $middleware = new AuthorizationMiddleware(
+            $this->rbac->reveal(),
+            $assertion->reveal()
+        );
+
+        $this->request->getAttribute('USER_ROLE', false)->willReturn('user');
+        $this->request->getAttribute('USER', false)->willReturn(false);
+
+        $routeResult = $this->prophesize(RouteResult::class);
+        $routeResult->getMatchedRouteName()->willReturn('home');
+
+        $this->request->getAttribute(RouteResult::class, false)
+                      ->willReturn($routeResult->reveal());
+
+        $response = $middleware->process(
+            $this->request->reveal(),
+            $this->delegate->reveal()
+        );
+        $this->assertTrue($response);
+        $assertion->setUser(false)->shouldHaveBeenCalled();
+        $assertion->setRequest($this->request->reveal())->shouldHaveBeenCalled();
+    }
+
+    public function testProcessNoGrantWithAssertion()
+    {
+        $assertion = $this->prophesize(MiddlewareAssertionInterface::class);
+        $this->rbac->isGranted('user', 'home', $assertion->reveal())->willReturn(false);
+        $this->delegate->process(Argument::any())->willReturn(true);
+
+        $middleware = new AuthorizationMiddleware(
+            $this->rbac->reveal(),
+            $assertion->reveal()
+        );
+
+        $this->request->getAttribute('USER_ROLE', false)->willReturn('user');
+        $this->request->getAttribute('USER', false)->willReturn(false);
+
+        $routeResult = $this->prophesize(RouteResult::class);
+        $routeResult->getMatchedRouteName()->willReturn('home');
+
+        $this->request->getAttribute(RouteResult::class, false)
+                      ->willReturn($routeResult->reveal());
+
+        $response = $middleware->process(
+            $this->request->reveal(),
+            $this->delegate->reveal()
+        );
+        $this->assertInstanceOf(EmptyResponse::class, $response);
+        $this->assertEquals(403, $response->getStatusCode());
+        $assertion->setUser(false)->shouldHaveBeenCalled();
+        $assertion->setRequest($this->request->reveal())->shouldHaveBeenCalled();
     }
 }

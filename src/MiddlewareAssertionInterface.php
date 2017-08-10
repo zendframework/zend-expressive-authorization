@@ -12,7 +12,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 interface MiddlewareAssertionInterface extends AssertionInterface
 {
-    public function setUser(array $user): void;
+    public function setUser($user): void;
 
     public function setRequest(ServerRequestInterface $request): void;
 }

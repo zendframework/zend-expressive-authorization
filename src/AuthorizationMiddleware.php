@@ -51,7 +51,7 @@ class AuthorizationMiddleware implements ServerMiddlewareInterface
         }
         // dynamic assertion if present
         if (null !== $this->assertion) {
-            $this->assertion->setUser($user);
+            $this->assertion->setUser($request->getAttribute('USER', false));
             $this->assertion->setRequest($request);
         }
 
@@ -62,7 +62,7 @@ class AuthorizationMiddleware implements ServerMiddlewareInterface
                 RouteResult::class
             ));
         }
-        $routeName = $routeResult->getMatchedRoute()->getName();
+        $routeName = $routeResult->getMatchedRouteName();
         if (! $this->rbac->isGranted($role, $routeName, $this->assertion)) {
             return new EmptyResponse(403);
         }
