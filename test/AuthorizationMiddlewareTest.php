@@ -133,7 +133,6 @@ class AuthorizationMiddlewareTest extends TestCase
         );
 
         $this->request->getAttribute('USER_ROLE', false)->willReturn('user');
-        $this->request->getAttribute('USER', false)->willReturn(false);
 
         $routeResult = $this->prophesize(RouteResult::class);
         $routeResult->getMatchedRouteName()->willReturn('home');
@@ -146,7 +145,6 @@ class AuthorizationMiddlewareTest extends TestCase
             $this->delegate->reveal()
         );
         $this->assertTrue($response);
-        $assertion->setUser(false)->shouldHaveBeenCalled();
         $assertion->setRequest($this->request->reveal())->shouldHaveBeenCalled();
     }
 
@@ -162,7 +160,6 @@ class AuthorizationMiddlewareTest extends TestCase
         );
 
         $this->request->getAttribute('USER_ROLE', false)->willReturn('user');
-        $this->request->getAttribute('USER', false)->willReturn(false);
 
         $routeResult = $this->prophesize(RouteResult::class);
         $routeResult->getMatchedRouteName()->willReturn('home');
@@ -176,7 +173,6 @@ class AuthorizationMiddlewareTest extends TestCase
         );
         $this->assertInstanceOf(EmptyResponse::class, $response);
         $this->assertEquals(403, $response->getStatusCode());
-        $assertion->setUser(false)->shouldHaveBeenCalled();
         $assertion->setRequest($this->request->reveal())->shouldHaveBeenCalled();
     }
 }
