@@ -5,12 +5,9 @@
  * @license   https://github.com/zendframework/zend-expressive-authorization/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Expressive\Authorization;
+namespace ZendTest\Expressive\Authorization;
 
-use Zend\Permissions\Rbac\AssertionInterface;
-use Psr\Http\Message\ServerRequestInterface;
-
-interface MiddlewareAssertionInterface extends AssertionInterface
+class ZendRbacFactoryTest
 {
-    public function setRequest(ServerRequestInterface $request): void;
+
 }

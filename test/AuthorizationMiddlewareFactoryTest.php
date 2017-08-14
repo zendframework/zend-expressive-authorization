@@ -8,12 +8,10 @@
 namespace ZendTest\Expressive\Authorization;
 
 use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
-use Zend\Permissions\Rbac\Rbac;
+use Zend\Expressive\Authorization\AuthorizationInterface;
 use Zend\Expressive\Authorization\AuthorizationMiddleware;
 use Zend\Expressive\Authorization\AuthorizationMiddlewareFactory;
-use Zend\Expressive\Authorization\MiddlewareAssertionInterface;
 
 class AuthorizationMiddlewareFactoryTest extends TestCase
 {
@@ -21,25 +19,37 @@ class AuthorizationMiddlewareFactoryTest extends TestCase
     {
         $this->container = $this->prophesize(ContainerInterface::class);
         $this->factory = new AuthorizationMiddlewareFactory();
-        $this->rbac = $this->prophesize(Rbac::class);
+        $this->authorization = $this->prophesize(AuthorizationInterface::class);
 
-        $this->container->get(Rbac::class)->willReturn($this->rbac->reveal());
+        $this->container->get(AuthorizationInterface::class)
+                        ->willReturn($this->authorization->reveal());
     }
 
-    public function testFactoryWithoutAssertion()
+    /**
+     * @expectedException Zend\Expressive\Authorization\Exception\InvalidConfigException
+     */
+    public function testFactoryWithoutAuthorization()
     {
-        $this->container->has(MiddlewareAssertionInterface::class)->willReturn(false);
+        $this->container->has(AuthorizationInterface::class)->willReturn(false);
 
         $middleware = ($this->factory)($this->container->reveal());
-        $this->assertInstanceOf(AuthorizationMiddleware::class, $middleware);
     }
 
-    public function testFactoryWithAssertion()
+    /**
+     * @expectedException Zend\Expressive\Authorization\Exception\InvalidConfigException
+     */
+    public function testFactoryWithAuthorizationEmptyRole()
     {
-        $assertion = $this->prophesize(MiddlewareAssertionInterface::class);
-        $this->container->get(MiddlewareAssertionInterface::class)
-                        ->willReturn($assertion->reveal());
-        $this->container->has(MiddlewareAssertionInterface::class)->willReturn(true);
+        $this->container->has(AuthorizationInterface::class)->willReturn(true);
+        $this->authorization->getRoleAttributeName()->willReturn('');
+
+        $middleware = ($this->factory)($this->container->reveal());
+    }
+
+    public function testFactory()
+    {
+        $this->container->has(AuthorizationInterface::class)->willReturn(true);
+        $this->authorization->getRoleAttributeName()->willReturn('foo');
 
         $middleware = ($this->factory)($this->container->reveal());
         $this->assertInstanceOf(AuthorizationMiddleware::class, $middleware);

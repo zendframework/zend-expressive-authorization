@@ -5,14 +5,16 @@
  * @license   https://github.com/zendframework/zend-expressive-authorization/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Expressive\Authorization;
+namespace Zend\Expressive\Authorization\Adapter;
 
 use Psr\Container\ContainerInterface;
+use Zend\Expressive\Authorization\AuthorizationInterface;
+use Zend\Permissions\Rbac\AssertionInterface;
 use Zend\Permissions\Rbac\Rbac;
 
-class RbacFactory
+class ZendPermissionsRbacFactory
 {
-    public function __invoke(ContainerInterface $container) : Rbac
+    public function __invoke(ContainerInterface $container) : AuthorizationInterface
     {
         $config = $container->get('config')['authorization'] ?? null;
         if (! isset($config['roles'])) {
@@ -39,6 +41,10 @@ class RbacFactory
             }
         }
 
-        return $rbac;
+        $assertion = $container->has(ZendRbacAssertionInterface::class) ?
+                     $container->get(ZendRbacAssertionInterface::class) :
+                     null;
+
+        return new ZendPermissionsRbac($rbac, $assertion);
     }
 }

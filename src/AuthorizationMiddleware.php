@@ -11,21 +11,13 @@ use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface as ServerMiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\EmptyResponse;
-use Zend\Expressive\Authorization\Exception;
-use Zend\Expressive\Router\RouteResult;
-use Zend\Permissions\Rbac\Rbac;
 
 class AuthorizationMiddleware implements ServerMiddlewareInterface
 {
     /**
-     * @var MiddlewareAssertionInterface
+     * @var AuthorizationInterface
      */
-    protected $assertion;
-
-    /**
-     * @var Rbac
-     */
-    protected $rbac;
+    protected $authorization;
 
     /**
      * Constructor
@@ -34,10 +26,9 @@ class AuthorizationMiddleware implements ServerMiddlewareInterface
      * @param MiddlewareAssertionInterface $assertion
      * @return void
      */
-    public function __construct(Rbac $rbac, MiddlewareAssertionInterface $assertion = null)
+    public function __construct(AuthorizationInterface $authorization)
     {
-        $this->rbac      = $rbac;
-        $this->assertion = $assertion;
+        $this->authorization = $authorization;
     }
 
     /**
@@ -45,23 +36,12 @@ class AuthorizationMiddleware implements ServerMiddlewareInterface
      */
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-        $role = $request->getAttribute('USER_ROLE', false);
+        $role = $request->getAttribute($this->authorization->getRoleAttributeName(), false);
         if (false === $role) {
             return new EmptyResponse(401);
         }
 
-        $routeResult = $request->getAttribute(RouteResult::class, false);
-        if (false === $routeResult) {
-            throw new Exception\RuntimeException(sprintf(
-                "The %s attribute is missing in the request",
-                RouteResult::class
-            ));
-        }
-        $routeName = $routeResult->getMatchedRouteName();
-        if (null !== $this->assertion) {
-            $this->assertion->setRequest($request);
-        }
-        return $this->rbac->isGranted($role, $routeName, $this->assertion) ?
+        return $this->authorization->isGranted($role, $request) ?
                $delegate->process($request) :
                new EmptyResponse(403);
     }

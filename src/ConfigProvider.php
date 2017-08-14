@@ -17,8 +17,8 @@ class ConfigProvider
     public function __invoke() : array
     {
         return [
-            'dependencies' => $this->getDependencies(),
-            'rbac'         => include __DIR__ . '/../config/authorization.php'
+            'dependencies'  => $this->getDependencies(),
+            'authorization' => include __DIR__ . '/../config/authorization.php'
         ];
     }
 
@@ -29,8 +29,7 @@ class ConfigProvider
     {
         return [
             'factories'  => [
-                AuthorizationMiddleware::class => AuthorizationMiddlewareFactory::class,
-                Rbac::class                    => RbacFactory::class,
+                AuthorizationMiddleware::class => AuthorizationMiddlewareFactory::class
             ],
         ];
     }
