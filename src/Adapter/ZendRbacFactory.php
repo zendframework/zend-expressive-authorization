@@ -9,10 +9,12 @@ namespace Zend\Expressive\Authorization\Adapter;
 
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Authorization\AuthorizationInterface;
+use Zend\Expressive\Authorization\Exception;
 use Zend\Permissions\Rbac\AssertionInterface;
 use Zend\Permissions\Rbac\Rbac;
+use Zend\Permissions\Rbac\Exception\ExceptionInterface as RbacExceptionInterface;
 
-class ZendPermissionsRbacFactory
+class ZendRbacFactory
 {
     public function __invoke(ContainerInterface $container) : AuthorizationInterface
     {
@@ -32,12 +34,20 @@ class ZendPermissionsRbacFactory
         $rbac->setCreateMissingRoles(true);
         // Roles and parents
         foreach ($config['roles'] as $role => $parents) {
-            $rbac->addRole($role, $parents);
+            try {
+                $rbac->addRole($role, $parents);
+            } catch (RbacExceptionInterface $e) {
+                throw new Exception\InvalidConfigException($e->getMessage());
+            }
         }
         // Permissions
         foreach ($config['permissions'] as $role => $permissions) {
             foreach ($permissions as $perm) {
-                $rbac->getRole($role)->addPermission($perm);
+                try {
+                    $rbac->getRole($role)->addPermission($perm);
+                } catch (RbacExceptionInterface $e) {
+                    throw new Exception\InvalidConfigException($e->getMessage());
+                }
             }
         }
 
@@ -45,6 +55,6 @@ class ZendPermissionsRbacFactory
                      $container->get(ZendRbacAssertionInterface::class) :
                      null;
 
-        return new ZendPermissionsRbac($rbac, $assertion);
+        return new ZendRbac($rbac, $assertion);
     }
 }

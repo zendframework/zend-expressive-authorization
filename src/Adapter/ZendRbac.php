@@ -7,11 +7,14 @@
 
 namespace Zend\Expressive\Authorization\Adapter;
 
+use Psr\Http\Message\ServerRequestInterface;
 use Zend\Expressive\Authorization\AuthorizationInterface;
+use Zend\Expressive\Authorization\Exception;
+use Zend\Expressive\Router\RouteResult;
 use Zend\Permissions\Rbac\AssertionInterface;
 use Zend\Permissions\Rbac\Rbac;
 
-class ZendPermissionsRbac implements AuthorizationInterface
+class ZendRbac implements AuthorizationInterface
 {
     public function __construct(Rbac $rbac, ZendRbacAssertionInterface $assertion = null)
     {

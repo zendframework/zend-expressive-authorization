@@ -19,7 +19,6 @@ use Zend\Expressive\Router\RouteResult;
 
 class AuthorizationMiddlewareTest extends TestCase
 {
-
     protected function setUp()
     {
         $this->authorization = $this->prophesize(AuthorizationInterface::class);
