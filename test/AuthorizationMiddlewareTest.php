@@ -35,8 +35,7 @@ class AuthorizationMiddlewareTest extends TestCase
 
     public function testProcessWithoutRoleAttribute()
     {
-        $this->authorization->getRoleAttributeName()->willReturn('foo');
-        $this->request->getAttribute('foo', false)->willReturn(false);
+        $this->request->getAttribute(AuthorizationInterface::class, false)->willReturn(false);
         $middleware = new AuthorizationMiddleware($this->authorization->reveal());
 
         $response = $middleware->process(
@@ -50,8 +49,7 @@ class AuthorizationMiddlewareTest extends TestCase
 
     public function testProcessRoleNotGranted()
     {
-        $this->authorization->getRoleAttributeName()->willReturn('foo');
-        $this->request->getAttribute('foo', false)->willReturn('foo');
+        $this->request->getAttribute(AuthorizationInterface::class, false)->willReturn('foo');
         $this->authorization->isGranted('foo', $this->request->reveal())->willReturn(false);
 
         $middleware = new AuthorizationMiddleware($this->authorization->reveal());
@@ -67,8 +65,7 @@ class AuthorizationMiddlewareTest extends TestCase
 
     public function testProcessRoleGranted()
     {
-        $this->authorization->getRoleAttributeName()->willReturn('foo');
-        $this->request->getAttribute('foo', false)->willReturn('foo');
+        $this->request->getAttribute(AuthorizationInterface::class, false)->willReturn('foo');
         $this->authorization->isGranted('foo', $this->request->reveal())->willReturn(true);
 
         $middleware = new AuthorizationMiddleware($this->authorization->reveal());

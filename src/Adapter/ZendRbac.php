@@ -39,11 +39,7 @@ class ZendRbac implements AuthorizationInterface
     }
 
     /**
-     * Check if a role is granted for a PSR-7 request
-     *
-     * @param string $role
-     * @param ServerRequestInterface $request
-     * @return bool
+     * {@inheritDoc}
      */
     public function isGranted(string $role, ServerRequestInterface $request): bool
     {
@@ -59,15 +55,5 @@ class ZendRbac implements AuthorizationInterface
             $this->assertion->setRequest($request);
         }
         return $this->rbac->isGranted($role, $routeName, $this->assertion);
-    }
-
-    /**
-     * Get the PSR-7 role attribute name
-     *
-     * @return string
-     */
-    public function getRoleAttributeName(): string
-    {
-        return 'USER_ROLE';
     }
 }

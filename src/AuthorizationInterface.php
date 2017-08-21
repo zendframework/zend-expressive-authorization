@@ -19,11 +19,4 @@ interface AuthorizationInterface
      * @return bool
      */
     public function isGranted(string $role, ServerRequestInterface $request): bool;
-
-    /**
-     * Return the role attribute name in the PSR-7 request
-     *
-     * @return string
-     */
-    public function getRoleAttributeName(): string;
 }

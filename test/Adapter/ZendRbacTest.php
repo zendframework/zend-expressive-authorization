@@ -114,10 +114,4 @@ class ZendRbacTest extends TestCase
         $this->assertFalse($result);
         $this->assertion->setRequest($request->reveal())->shouldBeCalled();
     }
-
-    public function testGetRoleAttributeName()
-    {
-        $zendRbac = new ZendRbac($this->rbac->reveal());
-        $this->assertEquals('USER_ROLE', $zendRbac->getRoleAttributeName());
-    }
 }

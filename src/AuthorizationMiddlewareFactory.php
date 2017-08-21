@@ -22,12 +22,6 @@ class AuthorizationMiddlewareFactory
                 'AuthorizationInterface service is missing'
             );
         }
-        if (empty($authorization->getRoleAttributeName())) {
-            throw new Exception\InvalidConfigException(sprintf(
-                "The role attribute name is empty in %s::getRoleAttributeName()",
-                get_class($authorization)
-            ));
-        }
         return new AuthorizationMiddleware($authorization);
     }
 }

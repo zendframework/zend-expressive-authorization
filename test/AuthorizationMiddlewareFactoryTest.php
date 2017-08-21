@@ -35,21 +35,9 @@ class AuthorizationMiddlewareFactoryTest extends TestCase
         $middleware = ($this->factory)($this->container->reveal());
     }
 
-    /**
-     * @expectedException Zend\Expressive\Authorization\Exception\InvalidConfigException
-     */
-    public function testFactoryWithAuthorizationEmptyRole()
-    {
-        $this->container->has(AuthorizationInterface::class)->willReturn(true);
-        $this->authorization->getRoleAttributeName()->willReturn('');
-
-        $middleware = ($this->factory)($this->container->reveal());
-    }
-
     public function testFactory()
     {
         $this->container->has(AuthorizationInterface::class)->willReturn(true);
-        $this->authorization->getRoleAttributeName()->willReturn('foo');
 
         $middleware = ($this->factory)($this->container->reveal());
         $this->assertInstanceOf(AuthorizationMiddleware::class, $middleware);

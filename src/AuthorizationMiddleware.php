@@ -36,7 +36,7 @@ class AuthorizationMiddleware implements ServerMiddlewareInterface
      */
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-        $role = $request->getAttribute($this->authorization->getRoleAttributeName(), false);
+        $role = $request->getAttribute(AuthorizationInterface::class, false);
         if (false === $role) {
             return new EmptyResponse(401);
         }

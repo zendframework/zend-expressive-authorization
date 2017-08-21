@@ -26,11 +26,7 @@ class ZendAcl implements AuthorizationInterface
     }
 
     /**
-     * Check if a role is allowed to process a PSR-7 request
-     *
-     * @param string $role
-     * @param ServerRequestInterface $request
-     * @return bool
+     * {@inheritDoc}
      */
     public function isGranted(string $role, ServerRequestInterface $request): bool
     {
@@ -44,15 +40,5 @@ class ZendAcl implements AuthorizationInterface
         $routeName = $routeResult->getMatchedRouteName();
 
         return $this->acl->isAllowed($role, $routeName);
-    }
-
-    /**
-     * Get the PSR-7 role attribute name
-     *
-     * @return string
-     */
-    public function getRoleAttributeName(): string
-    {
-        return 'USER_ROLE';
     }
 }
