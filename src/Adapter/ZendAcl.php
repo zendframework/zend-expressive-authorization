@@ -11,35 +11,22 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Expressive\Authorization\AuthorizationInterface;
 use Zend\Expressive\Authorization\Exception;
 use Zend\Expressive\Router\RouteResult;
-use Zend\Permissions\Rbac\AssertionInterface;
-use Zend\Permissions\Rbac\Rbac;
+use Zend\Permissions\Acl\Acl;
 
-class ZendRbac implements AuthorizationInterface
+class ZendAcl implements AuthorizationInterface
 {
     /**
-     * @var Rbac
+     * @var Acl
      */
-    private $rbac;
+    private $acl;
 
-    /**
-     * @var AssertionInterface
-     */
-    private $assertion;
-
-    /**
-     * Constructor
-     *
-     * @param Rbac $rbac
-     * @param ZendRbacAssertionInterface $assertion
-     */
-    public function __construct(Rbac $rbac, ZendRbacAssertionInterface $assertion = null)
+    public function __construct(Acl $acl)
     {
-        $this->rbac = $rbac;
-        $this->assertion = $assertion;
+        $this->acl = $acl;
     }
 
     /**
-     * Check if a role is granted for a PSR-7 request
+     * Check if a role is allowed to process a PSR-7 request
      *
      * @param string $role
      * @param ServerRequestInterface $request
@@ -55,10 +42,8 @@ class ZendRbac implements AuthorizationInterface
             ));
         }
         $routeName = $routeResult->getMatchedRouteName();
-        if (null !== $this->assertion) {
-            $this->assertion->setRequest($request);
-        }
-        return $this->rbac->isGranted($role, $routeName, $this->assertion);
+
+        return $this->acl->isAllowed($role, $routeName);
     }
 
     /**

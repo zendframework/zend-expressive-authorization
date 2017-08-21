@@ -19,6 +19,11 @@ class ZendRbacFactory
     public function __invoke(ContainerInterface $container) : AuthorizationInterface
     {
         $config = $container->get('config')['authorization'] ?? null;
+        if (null === $config) {
+            throw new Exception\InvalidConfigException(
+                'No authorization config provided'
+            );
+        }
         if (! isset($config['roles'])) {
             throw new Exception\InvalidConfigException(
                 'No authorization roles configured'

@@ -34,7 +34,7 @@ class ZendRbacFactoryTest extends TestCase
     /**
      * @expectedException Zend\Expressive\Authorization\Exception\InvalidConfigException
      */
-    public function testFactoryWithoutRoles()
+    public function testFactoryWithoutZendRbacConfig()
     {
         $this->container->get('config')->willReturn(['authorization' => []]);
 
@@ -48,7 +48,9 @@ class ZendRbacFactoryTest extends TestCase
     public function testFactoryWithoutPermissions()
     {
         $this->container->get('config')->willReturn([
-            'authorization' => [ 'roles' => []]
+            'authorization' => [
+                'roles' => []
+            ]
         ]);
 
         $factory = new ZendRbacFactory();
@@ -94,7 +96,7 @@ class ZendRbacFactoryTest extends TestCase
             'authorization' => [
                 'roles' => [
                     'administrator' => [],
-                    'editor'        => ['admin'],
+                    'editor'        => ['administrator'],
                     'contributor'   => ['editor'],
                 ],
                 'permissions' => [
@@ -124,7 +126,7 @@ class ZendRbacFactoryTest extends TestCase
             'authorization' => [
                 'roles' => [
                     'administrator' => [],
-                    'editor'        => ['admin'],
+                    'editor'        => ['administrator'],
                     'contributor'   => ['editor'],
                 ],
                 'permissions' => [
