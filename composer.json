@@ -26,7 +26,6 @@
         "psr/container": "^1.0",
         "psr/http-message": "^1.0.1",
         "zendframework/zend-permissions-rbac": "^2.5.1",
-        "zendframework/zend-permissions-acl": "^2.6.0",
         "zendframework/zend-diactoros": "^1.4.0",
         "zendframework/zend-expressive-router": "^2.1.0"
     },
@@ -37,6 +36,9 @@
     },
     "conflict": {
         "container-interop/container-interop": "<1.2.0"
+    },
+    "suggest": {
+        "zendframework/zend-expressive-authorization-acl": "^0.1 || ^1.0; provides a zend-permissions-acl-backed adapter"
     },
     "autoload": {
         "psr-4": {
