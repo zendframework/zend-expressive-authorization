@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2afdecd508861fbd51d440763793b4e1",
+    "content-hash": "49d59c5a2fd13c3fc11215e4d83cc5cf",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -314,51 +314,6 @@
                 "psr-7"
             ],
             "time": "2017-01-24T22:28:12+00:00"
-        },
-        {
-            "name": "zendframework/zend-permissions-rbac",
-            "version": "2.5.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/zendframework/zend-permissions-rbac.git",
-                "reference": "4213a4889ae7d7607c7974124965d12d1c395115"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-permissions-rbac/zipball/4213a4889ae7d7607c7974124965d12d1c395115",
-                "reference": "4213a4889ae7d7607c7974124965d12d1c395115",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.23"
-            },
-            "require-dev": {
-                "fabpot/php-cs-fixer": "1.7.*",
-                "phpunit/phpunit": "~4.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.5-dev",
-                    "dev-develop": "2.6-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Zend\\Permissions\\Rbac\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "provides a role-based access control management",
-            "homepage": "https://github.com/zendframework/zend-permissions-rbac",
-            "keywords": [
-                "rbac",
-                "zf2"
-            ],
-            "time": "2015-06-03T14:05:54+00:00"
         }
     ],
     "packages-dev": [
