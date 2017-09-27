@@ -5,19 +5,18 @@
     "type": "library",
     "license": "BSD-3-Clause",
     "keywords": [
-        "cache",
-        "http",
+        "authorization",
         "middleware",
-        "zend-expressive",
-        "psr-16"
+        "psr-7",
+        "zend-expressive"
     ],
     "config": {
         "sort-packages": true
     },
     "support": {
         "docs": "https://docs.zendframework.com/zend-expressive-authorization/",
-        "issues": "https://github.com/ezimuel/zend-expressive-authorization/issues",
-        "source": "https://github.com/ezimuel/zend-expressive-authorization",
+        "issues": "https://github.com/zendframework/zend-expressive-authorization/issues",
+        "source": "https://github.com/zendframework/zend-expressive-authorization",
         "slack": "https://zendframework-slack.herokuapp.com",
         "forum": "https://discourse.zendframework.com/c/questions/expressive"
     },
@@ -58,7 +57,6 @@
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
         "test": "phpunit --colors=always",
-        "test-coverage": "phpunit --coverage-clover clover.xml",
-        "license-check": "vendor/bin/docheader check src/ test/"
+        "test-coverage": "phpunit --coverage-clover clover.xml"
     }
 }
