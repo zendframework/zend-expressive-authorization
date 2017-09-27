@@ -9,15 +9,20 @@ namespace Zend\Expressive\Authorization;
 
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface as ServerMiddlewareInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zend\Diactoros\Response\EmptyResponse;
 
 class AuthorizationMiddleware implements ServerMiddlewareInterface
 {
     /**
      * @var AuthorizationInterface
      */
-    protected $authorization;
+    private $authorization;
+
+    /**
+     * @var ResponseInterface
+     */
+    private $responsePrototype;
 
     /**
      * Constructor
@@ -26,23 +31,26 @@ class AuthorizationMiddleware implements ServerMiddlewareInterface
      * @param MiddlewareAssertionInterface $assertion
      * @return void
      */
-    public function __construct(AuthorizationInterface $authorization)
+    public function __construct(AuthorizationInterface $authorization, ResponseInterface $responsePrototype)
     {
         $this->authorization = $authorization;
+        $this->responsePrototype = $responsePrototype;
     }
 
     /**
      * {@inheritDoc}
+     * @todo Use role/identity interface from zend-expressive-authentication once published.
      */
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
         $role = $request->getAttribute(AuthorizationInterface::class, false);
+
         if (false === $role) {
-            return new EmptyResponse(401);
+            return $this->responsePrototype->withStatus(401);
         }
 
-        return $this->authorization->isGranted($role, $request) ?
-               $delegate->process($request) :
-               new EmptyResponse(403);
+        return $this->authorization->isGranted($role, $request)
+            ? $delegate->process($request)
+            : $this->responsePrototype->withStatus(403);
     }
 }
