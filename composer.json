@@ -39,6 +39,14 @@
         "zendframework/zend-expressive-authorization-acl": "^0.1 || ^1.0; provides a zend-permissions-acl-backed adapter",
         "zendframework/zend-expressive-authorization-rbac": "^0.1 || ^1.0; provides a zend-permissions-rbac-backed adapter"
     },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        },
+        "zf": {
+            "config-provider": "Zend\\Expressive\\Authorization\\ConfigProvider"
+        }
+    },
     "autoload": {
         "psr-4": {
             "Zend\\Expressive\\Authorization\\": "src/"
