@@ -7,7 +7,6 @@
 
 namespace Zend\Expressive\Authorization\Exception;
 
-class RuntimeException extends \RuntimeException implements
-    ExceptionInterface
+class RuntimeException extends \RuntimeException implements Exception
 {
 }
