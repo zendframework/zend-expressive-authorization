@@ -7,6 +7,9 @@
 
 namespace Zend\Expressive\Authorization\Exception;
 
-class RuntimeException extends \RuntimeException implements Exception
+/**
+ * Marker interface for package-specific exceptions
+ */
+interface Exception
 {
 }
