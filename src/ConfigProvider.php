@@ -7,8 +7,6 @@
 
 namespace Zend\Expressive\Authorization;
 
-use Zend\Permission\Rbac\Rbac;
-
 class ConfigProvider
 {
     /**
