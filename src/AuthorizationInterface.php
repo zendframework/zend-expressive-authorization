@@ -13,10 +13,6 @@ interface AuthorizationInterface
 {
     /**
      * Check if a role is granted for the request
-     *
-     * @param string $role
-     * @param ServerRequestInterface $request
-     * @return bool
      */
     public function isGranted(string $role, ServerRequestInterface $request): bool;
 }
