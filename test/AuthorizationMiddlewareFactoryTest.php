@@ -13,6 +13,7 @@ use Psr\Http\Message\ResponseInterface;
 use Zend\Expressive\Authorization\AuthorizationInterface;
 use Zend\Expressive\Authorization\AuthorizationMiddleware;
 use Zend\Expressive\Authorization\AuthorizationMiddlewareFactory;
+use Zend\Expressive\Authorization\Exception;
 
 class AuthorizationMiddlewareFactoryTest extends TestCase
 {
@@ -31,24 +32,20 @@ class AuthorizationMiddlewareFactoryTest extends TestCase
             ->will([$this->response, 'reveal']);
     }
 
-    /**
-     * @expectedException Zend\Expressive\Authorization\Exception\InvalidConfigException
-     */
     public function testFactoryWithoutAuthorization()
     {
         $this->container->has(AuthorizationInterface::class)->willReturn(false);
 
+        $this->expectException(Exception\InvalidConfigException::class);
         $middleware = ($this->factory)($this->container->reveal());
     }
 
-    /**
-     * @expectedException Zend\Expressive\Authorization\Exception\InvalidConfigException
-     */
     public function testFactoryWithoutResponsePrototype()
     {
         $this->container->has(AuthorizationInterface::class)->willReturn(true);
         $this->container->has(ResponseInterface::class)->willReturn(false);
 
+        $this->expectException(Exception\InvalidConfigException::class);
         $middleware = ($this->factory)($this->container->reveal());
     }
 
