@@ -10,7 +10,6 @@ namespace Zend\Expressive\Authorization;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response;
-use Zend\Expressive\Authorization\AuthorizationInterface;
 
 class AuthorizationMiddlewareFactory
 {

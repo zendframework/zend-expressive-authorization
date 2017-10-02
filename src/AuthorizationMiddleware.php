@@ -24,13 +24,6 @@ class AuthorizationMiddleware implements ServerMiddlewareInterface
      */
     private $responsePrototype;
 
-    /**
-     * Constructor
-     *
-     * @param Rbac $rbac
-     * @param MiddlewareAssertionInterface $assertion
-     * @return void
-     */
     public function __construct(AuthorizationInterface $authorization, ResponseInterface $responsePrototype)
     {
         $this->authorization = $authorization;
