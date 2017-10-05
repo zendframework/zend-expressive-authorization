@@ -7,14 +7,15 @@
 
 namespace ZendTest\Expressive\Authorization;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
 use Zend\Expressive\Authorization\AuthorizationInterface;
 use Zend\Expressive\Authorization\AuthorizationMiddleware;
-use Zend\Expressive\Router\RouteResult;
+
+use const Webimpress\HttpMiddlewareCompatibility\HANDLER_METHOD;
 
 class AuthorizationMiddlewareTest extends TestCase
 {
@@ -22,7 +23,7 @@ class AuthorizationMiddlewareTest extends TestCase
     {
         $this->authorization = $this->prophesize(AuthorizationInterface::class);
         $this->request = $this->prophesize(ServerRequestInterface::class);
-        $this->delegate = $this->prophesize(DelegateInterface::class);
+        $this->delegate = $this->prophesize(HandlerInterface::class);
         $this->response = $this->prophesize(ResponseInterface::class);
     }
 
@@ -69,7 +70,7 @@ class AuthorizationMiddlewareTest extends TestCase
         $this->authorization->isGranted('foo', $this->request->reveal())->willReturn(true);
 
         $middleware = new AuthorizationMiddleware($this->authorization->reveal(), $this->response->reveal());
-        $this->delegate->process(Argument::any())->willReturn($this->response->reveal());
+        $this->delegate->{HANDLER_METHOD}(Argument::any())->willReturn($this->response->reveal());
 
         $response = $middleware->process(
             $this->request->reveal(),
