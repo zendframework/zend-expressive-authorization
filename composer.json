@@ -22,8 +22,8 @@
     },
     "repositories": [
         {
-            "type": "vcs",
-            "url": "git://github.com/webimpress/zend-expressive-router.git"
+            "type": "git",
+            "url": "https://github.com/webimpress/zend-expressive-router.git"
         }
     ],
     "require": {
