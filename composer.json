@@ -10,9 +10,6 @@
         "zendframework",
         "zend-expressive"
     ],
-    "config": {
-        "sort-packages": true
-    },
     "support": {
         "docs": "https://docs.zendframework.com/zend-expressive-authorization/",
         "issues": "https://github.com/zendframework/zend-expressive-authorization/issues",
@@ -40,14 +37,6 @@
         "zendframework/zend-expressive-authorization-acl": "^0.1 || ^1.0; provides a zend-permissions-acl-backed adapter",
         "zendframework/zend-expressive-authorization-rbac": "^0.1 || ^1.0; provides a zend-permissions-rbac-backed adapter"
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev"
-        },
-        "zf": {
-            "config-provider": "Zend\\Expressive\\Authorization\\ConfigProvider"
-        }
-    },
     "autoload": {
         "psr-4": {
             "Zend\\Expressive\\Authorization\\": "src/"
@@ -56,6 +45,17 @@
     "autoload-dev": {
         "psr-4": {
             "ZendTest\\Expressive\\Authorization\\": "test/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        },
+        "zf": {
+            "config-provider": "Zend\\Expressive\\Authorization\\ConfigProvider"
         }
     },
     "scripts": {
