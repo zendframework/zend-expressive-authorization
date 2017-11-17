@@ -7,13 +7,11 @@
 
 namespace Zend\Expressive\Authorization;
 
+use Interop\Http\Server\MiddlewareInterface;
+use Interop\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
-use Webimpress\HttpMiddlewareCompatibility\MiddlewareInterface;
 use Zend\Expressive\Authentication\UserInterface;
-
-use const Webimpress\HttpMiddlewareCompatibility\HANDLER_METHOD;
 
 class AuthorizationMiddleware implements MiddlewareInterface
 {
@@ -36,7 +34,7 @@ class AuthorizationMiddleware implements MiddlewareInterface
     /**
      * {@inheritDoc}
      */
-    public function process(ServerRequestInterface $request, HandlerInterface $handler)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
         $user = $request->getAttribute(UserInterface::class, false);
         if (! $user instanceof UserInterface) {
@@ -45,7 +43,7 @@ class AuthorizationMiddleware implements MiddlewareInterface
 
         foreach ($user->getUserRoles() as $role) {
             if ($this->authorization->isGranted($role, $request)) {
-                return $handler->{HANDLER_METHOD}($request);
+                return $handler->handle($request);
             }
         }
         return $this->responsePrototype->withStatus(403);
