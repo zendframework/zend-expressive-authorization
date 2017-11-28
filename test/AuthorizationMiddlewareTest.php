@@ -12,6 +12,8 @@ use Prophecy\Argument;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
+use Zend\Expressive\Authentication\UserInterface;
+use Zend\Expressive\Authentication\UserRepository\UserTrait;
 use Zend\Expressive\Authorization\AuthorizationInterface;
 use Zend\Expressive\Authorization\AuthorizationMiddleware;
 
@@ -19,6 +21,8 @@ use const Webimpress\HttpMiddlewareCompatibility\HANDLER_METHOD;
 
 class AuthorizationMiddlewareTest extends TestCase
 {
+    use UserTrait;
+
     protected function setUp()
     {
         $this->authorization = $this->prophesize(AuthorizationInterface::class);
@@ -33,10 +37,14 @@ class AuthorizationMiddlewareTest extends TestCase
         $this->assertInstanceOf(AuthorizationMiddleware::class, $middleware);
     }
 
-    public function testProcessWithoutRoleAttribute()
+    public function testProcessWithoutUserAttribute()
     {
-        $this->request->getAttribute(AuthorizationInterface::class, false)->willReturn(false);
+        $this->request->getAttribute(UserInterface::class, false)->willReturn(false);
         $this->response->withStatus(401)->will([$this->response, 'reveal']);
+
+        $this->delegate
+            ->{HANDLER_METHOD}(Argument::any())
+            ->shouldNotBeCalled();
 
         $middleware = new AuthorizationMiddleware($this->authorization->reveal(), $this->response->reveal());
 
@@ -50,9 +58,19 @@ class AuthorizationMiddlewareTest extends TestCase
 
     public function testProcessRoleNotGranted()
     {
-        $this->request->getAttribute(AuthorizationInterface::class, false)->willReturn('foo');
-        $this->response->withStatus(403)->will([$this->response, 'reveal']);
-        $this->authorization->isGranted('foo', $this->request->reveal())->willReturn(false);
+        $this->request
+            ->getAttribute(UserInterface::class, false)
+            ->willReturn($this->generateUser('foo', ['bar']));
+        $this->response
+            ->withStatus(403)
+            ->will([$this->response, 'reveal']);
+        $this->authorization
+            ->isGranted('bar', Argument::that([$this->request, 'reveal']))
+            ->willReturn(false);
+
+        $this->delegate
+            ->{HANDLER_METHOD}(Argument::any())
+            ->shouldNotBeCalled();
 
         $middleware = new AuthorizationMiddleware($this->authorization->reveal(), $this->response->reveal());
 
@@ -66,11 +84,18 @@ class AuthorizationMiddlewareTest extends TestCase
 
     public function testProcessRoleGranted()
     {
-        $this->request->getAttribute(AuthorizationInterface::class, false)->willReturn('foo');
-        $this->authorization->isGranted('foo', $this->request->reveal())->willReturn(true);
+        $this->request
+            ->getAttribute(UserInterface::class, false)
+            ->willReturn($this->generateUser('foo', ['bar']));
+        $this->authorization
+            ->isGranted('bar', Argument::that([$this->request, 'reveal']))
+            ->willReturn(true);
+
+        $this->delegate
+            ->{HANDLER_METHOD}(Argument::any())
+            ->will([$this->response, 'reveal']);
 
         $middleware = new AuthorizationMiddleware($this->authorization->reveal(), $this->response->reveal());
-        $this->delegate->{HANDLER_METHOD}(Argument::any())->willReturn($this->response->reveal());
 
         $response = $middleware->process(
             $this->request->reveal(),
