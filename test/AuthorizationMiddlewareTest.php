@@ -42,6 +42,10 @@ class AuthorizationMiddlewareTest extends TestCase
         $this->request->getAttribute(UserInterface::class, false)->willReturn(false);
         $this->response->withStatus(401)->will([$this->response, 'reveal']);
 
+        $this->delegate
+            ->{HANDLER_METHOD}(Argument::any())
+            ->shouldNotBeCalled();
+
         $middleware = new AuthorizationMiddleware($this->authorization->reveal(), $this->response->reveal());
 
         $response = $middleware->process(
@@ -54,10 +58,19 @@ class AuthorizationMiddlewareTest extends TestCase
 
     public function testProcessRoleNotGranted()
     {
-        $this->request->getAttribute(UserInterface::class, false)
-                      ->willReturn($this->generateUser('foo', ['bar']));
-        $this->response->withStatus(403)->will([$this->response, 'reveal']);
-        $this->authorization->isGranted('bar', $this->request->reveal())->willReturn(false);
+        $this->request
+            ->getAttribute(UserInterface::class, false)
+            ->willReturn($this->generateUser('foo', ['bar']));
+        $this->response
+            ->withStatus(403)
+            ->will([$this->response, 'reveal']);
+        $this->authorization
+            ->isGranted('bar', Argument::that([$this->request, 'reveal']))
+            ->willReturn(false);
+
+        $this->delegate
+            ->{HANDLER_METHOD}(Argument::any())
+            ->shouldNotBeCalled();
 
         $middleware = new AuthorizationMiddleware($this->authorization->reveal(), $this->response->reveal());
 
@@ -71,12 +84,18 @@ class AuthorizationMiddlewareTest extends TestCase
 
     public function testProcessRoleGranted()
     {
-        $this->request->getAttribute(UserInterface::class, false)
-                      ->willReturn($this->generateUser('foo', ['bar']));
-        $this->authorization->isGranted('bar', $this->request->reveal())->willReturn(true);
+        $this->request
+            ->getAttribute(UserInterface::class, false)
+            ->willReturn($this->generateUser('foo', ['bar']));
+        $this->authorization
+            ->isGranted('bar', Argument::that([$this->request, 'reveal']))
+            ->willReturn(true);
+
+        $this->delegate
+            ->{HANDLER_METHOD}(Argument::any())
+            ->will([$this->response, 'reveal']);
 
         $middleware = new AuthorizationMiddleware($this->authorization->reveal(), $this->response->reveal());
-        $this->delegate->{HANDLER_METHOD}(Argument::any())->willReturn($this->response->reveal());
 
         $response = $middleware->process(
             $this->request->reveal(),
