@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bdce846cff4338e6578f2e5e03082f51",
+    "content-hash": "f6e6eefa51062277f00f395a86dfcba4",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -261,6 +261,94 @@
                 "response"
             ],
             "time": "2016-08-06T14:39:51+00:00"
+        },
+        {
+            "name": "zendframework/zend-expressive-authentication",
+            "version": "dev-feature/psr-15",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webimpress/zend-expressive-authentication.git",
+                "reference": "17af450391e6e3144a61c43a1c408e33c21a0232"
+            },
+            "require": {
+                "http-interop/http-server-middleware": "^1.0.1",
+                "php": "^7.1",
+                "psr/container": "^1.0",
+                "psr/http-message": "^1.0.1"
+            },
+            "conflict": {
+                "container-interop/container-interop": "<1.2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.3",
+                "roave/security-advisories": "dev-master",
+                "zendframework/zend-coding-standard": "~1.0.0"
+            },
+            "suggest": {
+                "ext-pdo": "*: for use with the PDO-backed UserRepositoryInterface implementation",
+                "zendframework/zend-expressive-authentication-basic": "Provides an HTTP Basic Authentication AuthenticationInterface implementation",
+                "zendframework/zend-expressive-authentication-session": "Provides a username/password + session AuthenticationInterface implementation",
+                "zendframework/zend-expressive-authentication-zendauthentication": "Provides a zend-authentication AuthenticationInterface implementation"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zend\\Expressive\\Authentication\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "ZendTest\\Expressive\\Authentication\\": "test/"
+                }
+            },
+            "scripts": {
+                "check": [
+                    "@cs-check",
+                    "@test"
+                ],
+                "cs-check": [
+                    "phpcs"
+                ],
+                "cs-fix": [
+                    "phpcbf"
+                ],
+                "test": [
+                    "phpunit --colors=always"
+                ],
+                "test-coverage": [
+                    "phpunit --colors=always --coverage-clover clover.xml"
+                ],
+                "upload-coverage": [
+                    "coveralls -v"
+                ]
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Authentication middleware for Expressive and PSR-7 applications",
+            "keywords": [
+                "authentication",
+                "http",
+                "middleware",
+                "psr-7",
+                "zend-expressive",
+                "zendframework",
+                "zf"
+            ],
+            "support": {
+                "docs": "https://docs.zendframework.com/zend-expressive-authentication/",
+                "issues": "https://github.com/zendframework/zend-expressive-authentication/issues",
+                "source": "https://github.com/zendframework/zend-expressive-authentication",
+                "rss": "https://github.com/zendframework/zend-expressive-authentication/releases.atom",
+                "slack": "https://zendframework-slack.herokuapp.com",
+                "forum": "https://discourse.zendframework.com/c/questions/expressive"
+            },
+            "time": "2017-11-27T18:25:19+00:00"
         },
         {
             "name": "zendframework/zend-expressive-router",
@@ -2155,6 +2243,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "zendframework/zend-expressive-authentication": 20,
         "zendframework/zend-expressive-router": 20,
         "roave/security-advisories": 20
     },
