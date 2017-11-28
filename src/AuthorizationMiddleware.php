@@ -39,7 +39,7 @@ class AuthorizationMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, HandlerInterface $handler)
     {
         $user = $request->getAttribute(UserInterface::class, false);
-        if (false === $user) {
+        if (! $user instanceof UserInterface) {
             return $this->responsePrototype->withStatus(401);
         }
 
