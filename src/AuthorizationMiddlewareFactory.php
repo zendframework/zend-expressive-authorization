@@ -10,9 +10,12 @@ namespace Zend\Expressive\Authorization;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response;
+use Zend\Expressive\Authentication\ResponsePrototypeTrait;
 
 class AuthorizationMiddlewareFactory
 {
+    use ResponsePrototypeTrait;
+
     public function __invoke(ContainerInterface $container) : AuthorizationMiddleware
     {
         if (! $container->has(AuthorizationInterface::class)) {
@@ -23,20 +26,11 @@ class AuthorizationMiddlewareFactory
             ));
         }
 
-        if (! $container->has(ResponseInterface::class)
-            && ! class_exists(Response::class)
-        ) {
-            throw new Exception\InvalidConfigException(sprintf(
-                'Cannot create %s service; dependency %s is missing. Either define the service, '
-                . 'or install zendframework/zend-diactoros',
-                AuthorizationMiddleware::class,
-                ResponseInterface::class
-            ));
+        try {
+            $responsePrototype = $this->getResponsePrototype($container);
+        } catch (\Exception $e) {
+            throw new Exception\InvalidConfigException($e->getMessage());
         }
-
-        $responsePrototype = $container->has(ResponseInterface::class)
-            ? $container->get(ResponseInterface::class)
-            : new Response();
 
         return new AuthorizationMiddleware(
             $container->get(AuthorizationInterface::class),
