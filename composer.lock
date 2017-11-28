@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e9fac9f5b1de62404af876e556f28ab",
+    "content-hash": "bdce846cff4338e6578f2e5e03082f51",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -302,7 +302,7 @@
         },
         {
             "name": "zendframework/zend-expressive-authentication",
-            "version": "dev-master",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-expressive-authentication.git",
@@ -359,7 +359,7 @@
                 "zend-expressive",
                 "zf"
             ],
-            "time": "2017-11-27 16:59:48"
+            "time": "2017-11-27T16:59:48+00:00"
         },
         {
             "name": "zendframework/zend-expressive-router",
@@ -2132,7 +2132,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "zendframework/zend-expressive-authentication": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,
