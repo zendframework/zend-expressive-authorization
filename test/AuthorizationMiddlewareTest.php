@@ -12,10 +12,10 @@ use Prophecy\Argument;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
-use Zend\Expressive\Authorization\AuthorizationInterface;
-use Zend\Expressive\Authorization\AuthorizationMiddleware;
 use Zend\Expressive\Authentication\UserInterface;
 use Zend\Expressive\Authentication\UserRepository\UserTrait;
+use Zend\Expressive\Authorization\AuthorizationInterface;
+use Zend\Expressive\Authorization\AuthorizationMiddleware;
 
 use const Webimpress\HttpMiddlewareCompatibility\HANDLER_METHOD;
 
