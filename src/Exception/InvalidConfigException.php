@@ -9,6 +9,6 @@ declare(strict_types=1);
 
 namespace Zend\Expressive\Authorization\Exception;
 
-class InvalidConfigException extends RuntimeException implements ExceptionInterface
+class InvalidConfigException extends RuntimeException
 {
 }
