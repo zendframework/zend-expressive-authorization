@@ -1,22 +1,20 @@
 {
     "name": "zendframework/zend-expressive-authorization",
     "description": "Authorization middleware for Expressive and PSR-7 applications",
-    "homepage": "https://docs.zendframework.com/zend-expressive-authorization/",
-    "type": "library",
     "license": "BSD-3-Clause",
     "keywords": [
         "authorization",
         "middleware",
         "psr-7",
+        "zf",
+        "zendframework",
         "zend-expressive"
     ],
-    "config": {
-        "sort-packages": true
-    },
     "support": {
         "docs": "https://docs.zendframework.com/zend-expressive-authorization/",
         "issues": "https://github.com/zendframework/zend-expressive-authorization/issues",
         "source": "https://github.com/zendframework/zend-expressive-authorization",
+        "rss": "https://github.com/zendframework/zend-expressive-authorization/releases.atom",
         "slack": "https://zendframework-slack.herokuapp.com",
         "forum": "https://discourse.zendframework.com/c/questions/expressive"
     },
@@ -30,7 +28,7 @@
         "zendframework/zend-expressive-router": "^2.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.0.8",
+        "phpunit/phpunit": "^6.4.3",
         "roave/security-advisories": "dev-master",
         "zendframework/zend-coding-standard": "~1.0.0"
     },
@@ -40,15 +38,6 @@
     "suggest": {
         "zendframework/zend-expressive-authorization-acl": "^0.1 || ^1.0; provides a zend-permissions-acl-backed adapter",
         "zendframework/zend-expressive-authorization-rbac": "^0.1 || ^1.0; provides a zend-permissions-rbac-backed adapter"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "^0.3.x-dev",
-            "dev-release-1.0.0": "^1.0.x-dev"
-        },
-        "zf": {
-            "config-provider": "Zend\\Expressive\\Authorization\\ConfigProvider"
-        }
     },
     "autoload": {
         "psr-4": {
@@ -60,15 +49,27 @@
             "ZendTest\\Expressive\\Authorization\\": "test/"
         }
     },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "^0.3.x-dev",
+            "dev-release-1.0.0": "^1.0.x-dev"
+        },
+        "zf": {
+            "config-provider": "Zend\\Expressive\\Authorization\\ConfigProvider"
+        }
+    },
     "scripts": {
         "check": [
             "@cs-check",
             "@test"
         ],
-        "upload-coverage": "coveralls -v",
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
         "test": "phpunit --colors=always",
-        "test-coverage": "phpunit --coverage-clover clover.xml"
+        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
+        "upload-coverage": "coveralls -v"
     }
 }
