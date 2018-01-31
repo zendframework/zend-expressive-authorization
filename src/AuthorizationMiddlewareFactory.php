@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Zend\Expressive\Authorization;
 
 use Psr\Container\ContainerInterface;
-use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response;
 use Zend\Expressive\Authentication\ResponsePrototypeTrait;
 
