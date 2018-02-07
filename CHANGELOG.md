@@ -2,11 +2,11 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 1.0.0alpha1 - TBD
+## 1.0.0alpha1 - 2018-02-07
 
 ### Added
 
-- [#11](https://github.com/zendframework/zend-expressive-authorization/pull/11) adds
+- [#16](https://github.com/zendframework/zend-expressive-authorization/pull/16) adds
   support for PSR-15.
 
 ### Changed
@@ -19,8 +19,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- [#11](https://github.com/zendframework/zend-expressive-authorization/pull/11)
-  removes support for http-interop/http-middleware.
+- [#16](https://github.com/zendframework/zend-expressive-authorization/pull/16) and
+  [#11](https://github.com/zendframework/zend-expressive-authorization/pull/11)
+  remove support for http-interop/http-middleware and
+  http-interop/http-server-middleware.
 
 ### Fixed
 
