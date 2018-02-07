@@ -4,67 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "72383b051d89726fe63c7f6ef6228b78",
+    "content-hash": "dbc5ed84a7ca61d7dd50b8aeca1f93ea",
     "packages": [
-        {
-            "name": "http-interop/http-server-middleware",
-            "version": "1.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/http-interop/http-server-middleware.git",
-                "reference": "1ed99649e5f0d785c16d53cc021d7187ec350f28"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/http-interop/http-server-middleware/zipball/1ed99649e5f0d785c16d53cc021d7187ec350f28",
-                "reference": "1ed99649e5f0d785c16d53cc021d7187ec350f28",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0",
-                "psr/http-message": "^1.0",
-                "psr/http-server-middleware": "^1.0"
-            },
-            "replace": {
-                "http-interop/http-middleware": ">=0.5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Interop\\Http\\Server\\": "src/"
-                },
-                "files": [
-                    "src/alias.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
-                }
-            ],
-            "description": "Common interface for HTTP server-side middleware",
-            "keywords": [
-                "http",
-                "middleware",
-                "psr",
-                "psr-15",
-                "psr-7",
-                "request",
-                "response"
-            ],
-            "abandoned": "psr/http-server-middleware",
-            "time": "2018-01-23T14:34:55+00:00"
-        },
         {
             "name": "psr/container",
             "version": "1.0.0",
@@ -272,29 +213,29 @@
         },
         {
             "name": "zendframework/zend-expressive-authentication",
-            "version": "dev-release-1.0.0",
+            "version": "1.0.0alpha1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-expressive-authentication.git",
-                "reference": "2145176ce76835c7d6aacf8ccd500698932d7daa"
+                "reference": "d9c9162609c58267cc4cfd8a2d99a3a4d9580e61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-expressive-authentication/zipball/2145176ce76835c7d6aacf8ccd500698932d7daa",
-                "reference": "2145176ce76835c7d6aacf8ccd500698932d7daa",
+                "url": "https://api.github.com/repos/zendframework/zend-expressive-authentication/zipball/d9c9162609c58267cc4cfd8a2d99a3a4d9580e61",
+                "reference": "d9c9162609c58267cc4cfd8a2d99a3a4d9580e61",
                 "shasum": ""
             },
             "require": {
-                "http-interop/http-server-middleware": "^1.0.1",
                 "php": "^7.1",
                 "psr/container": "^1.0",
-                "psr/http-message": "^1.0.1"
+                "psr/http-message": "^1.0.1",
+                "psr/http-server-middleware": "^1.0"
             },
             "conflict": {
                 "container-interop/container-interop": "<1.2.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.3",
+                "phpunit/phpunit": "^6.5.5",
                 "roave/security-advisories": "dev-master",
                 "zendframework/zend-coding-standard": "~1.0.0"
             },
@@ -326,11 +267,12 @@
                 "ZendFramework",
                 "http",
                 "middleware",
+                "psr-15",
                 "psr-7",
                 "zend-expressive",
                 "zf"
             ],
-            "time": "2018-01-24T17:14:41+00:00"
+            "time": "2018-02-07T20:56:40+00:00"
         }
     ],
     "packages-dev": [
@@ -2048,7 +1990,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "zendframework/zend-expressive-authentication": 20,
+        "zendframework/zend-expressive-authentication": 15,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,
