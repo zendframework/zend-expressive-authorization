@@ -29,7 +29,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- Nothing.
+- [#19](https://github.com/zendframework/zend-expressive-authorization/pull/19)
+  removes the file `config/authorization.php` and merges its contents into the
+  `Zend\Expressive\Authorization\ConfigProvider` class.
 
 ### Fixed
 
