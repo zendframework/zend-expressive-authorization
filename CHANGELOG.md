@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.0.0alpha2 - 2018-02-27
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- [#18](https://github.com/zendframework/zend-expressive-authorization/pull/18)
+  changes the constructor of the `Zend\Expressive\Authorization\AuthorizationMiddleware`
+  class to accept a callable `$responseFactory` instead of a
+  `Psr\Http\Message\ResponseInterface` response prototype. The
+  `$responseFactory` should produce a `ResponseInterface` implementation when
+  invoked.
+
+- [#18](https://github.com/zendframework/zend-expressive-authorization/pull/18)
+  updates the `AuthorizationMiddlewareFactory` to no longer use
+  `Zend\Expressive\Authentication\ResponsePrototypeTrait`, and instead always
+  depend on the `Psr\Http\Message\ResponseInterface` service to correctly return
+  a PHP callable capable of producing a `ResponseInterface` instance.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 1.0.0alpha1 - 2018-02-07
 
 ### Added
