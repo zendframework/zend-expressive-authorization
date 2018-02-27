@@ -23,14 +23,18 @@ class AuthorizationMiddleware implements MiddlewareInterface
     private $authorization;
 
     /**
-     * @var ResponseInterface
+     * @var callable
      */
-    private $responsePrototype;
+    private $responseFactory;
 
-    public function __construct(AuthorizationInterface $authorization, ResponseInterface $responsePrototype)
+    public function __construct(AuthorizationInterface $authorization, callable $responseFactory)
     {
         $this->authorization = $authorization;
-        $this->responsePrototype = $responsePrototype;
+
+        // Ensures type safety of the composed factory
+        $this->responseFactory = function () use ($responseFactory) : ResponseInterface {
+            return $responseFactory();
+        };
     }
 
     /**
@@ -40,7 +44,7 @@ class AuthorizationMiddleware implements MiddlewareInterface
     {
         $user = $request->getAttribute(UserInterface::class, false);
         if (! $user instanceof UserInterface) {
-            return $this->responsePrototype->withStatus(401);
+            return ($this->responseFactory)()->withStatus(401);
         }
 
         foreach ($user->getUserRoles() as $role) {
@@ -48,6 +52,6 @@ class AuthorizationMiddleware implements MiddlewareInterface
                 return $handler->handle($request);
             }
         }
-        return $this->responsePrototype->withStatus(403);
+        return ($this->responseFactory)()->withStatus(403);
     }
 }
