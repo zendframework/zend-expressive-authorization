@@ -12,6 +12,8 @@ namespace Zend\Expressive\Authorization;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 
+use function sprintf;
+
 class AuthorizationMiddlewareFactory
 {
     public function __invoke(ContainerInterface $container) : AuthorizationMiddleware
