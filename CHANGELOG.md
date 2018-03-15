@@ -2,11 +2,12 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 1.0.0alpha2 - 2018-02-27
+## 0.4.0 - 2018-03-15
 
 ### Added
 
-- Nothing.
+- [#16](https://github.com/zendframework/zend-expressive-authorization/pull/16) adds
+  support for PSR-15.
 
 ### Changed
 
@@ -32,27 +33,6 @@ All notable changes to this project will be documented in this file, in reverse 
 - [#19](https://github.com/zendframework/zend-expressive-authorization/pull/19)
   removes the file `config/authorization.php` and merges its contents into the
   `Zend\Expressive\Authorization\ConfigProvider` class.
-
-### Fixed
-
-- Nothing.
-
-## 1.0.0alpha1 - 2018-02-07
-
-### Added
-
-- [#16](https://github.com/zendframework/zend-expressive-authorization/pull/16) adds
-  support for PSR-15.
-
-### Changed
-
-- Nothing.
-
-### Deprecated
-
-- Nothing.
-
-### Removed
 
 - [#16](https://github.com/zendframework/zend-expressive-authorization/pull/16) and
   [#11](https://github.com/zendframework/zend-expressive-authorization/pull/11)
