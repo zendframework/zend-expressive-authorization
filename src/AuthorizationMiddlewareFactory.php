@@ -5,15 +5,17 @@
  * @license   https://github.com/zendframework/zend-expressive-authorization/blob/master/LICENSE.md New BSD License
  */
 
+declare(strict_types=1);
+
 namespace Zend\Expressive\Authorization;
 
 use Psr\Container\ContainerInterface;
-use Zend\Expressive\Authentication\ResponsePrototypeTrait;
+use Psr\Http\Message\ResponseInterface;
+
+use function sprintf;
 
 class AuthorizationMiddlewareFactory
 {
-    use ResponsePrototypeTrait;
-
     public function __invoke(ContainerInterface $container) : AuthorizationMiddleware
     {
         if (! $container->has(AuthorizationInterface::class)) {
@@ -24,15 +26,9 @@ class AuthorizationMiddlewareFactory
             ));
         }
 
-        try {
-            $responsePrototype = $this->getResponsePrototype($container);
-        } catch (\Exception $e) {
-            throw new Exception\InvalidConfigException($e->getMessage());
-        }
-
         return new AuthorizationMiddleware(
             $container->get(AuthorizationInterface::class),
-            $responsePrototype
+            $container->get(ResponseInterface::class)
         );
     }
 }

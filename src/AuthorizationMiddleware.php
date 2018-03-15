@@ -1,19 +1,19 @@
 <?php
 /**
  * @see       https://github.com/zendframework/zend-expressive-authorization for the canonical source repository
- * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2017-2018 Zend Technologies USA Inc. (https://www.zend.com)
  * @license   https://github.com/zendframework/zend-expressive-authorization/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Expressive\Authorization;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
-use Webimpress\HttpMiddlewareCompatibility\MiddlewareInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Expressive\Authentication\UserInterface;
-
-use const Webimpress\HttpMiddlewareCompatibility\HANDLER_METHOD;
 
 class AuthorizationMiddleware implements MiddlewareInterface
 {
@@ -23,31 +23,35 @@ class AuthorizationMiddleware implements MiddlewareInterface
     private $authorization;
 
     /**
-     * @var ResponseInterface
+     * @var callable
      */
-    private $responsePrototype;
+    private $responseFactory;
 
-    public function __construct(AuthorizationInterface $authorization, ResponseInterface $responsePrototype)
+    public function __construct(AuthorizationInterface $authorization, callable $responseFactory)
     {
         $this->authorization = $authorization;
-        $this->responsePrototype = $responsePrototype;
+
+        // Ensures type safety of the composed factory
+        $this->responseFactory = function () use ($responseFactory) : ResponseInterface {
+            return $responseFactory();
+        };
     }
 
     /**
      * {@inheritDoc}
      */
-    public function process(ServerRequestInterface $request, HandlerInterface $handler)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
         $user = $request->getAttribute(UserInterface::class, false);
         if (! $user instanceof UserInterface) {
-            return $this->responsePrototype->withStatus(401);
+            return ($this->responseFactory)()->withStatus(401);
         }
 
         foreach ($user->getUserRoles() as $role) {
             if ($this->authorization->isGranted($role, $request)) {
-                return $handler->{HANDLER_METHOD}($request);
+                return $handler->handle($request);
             }
         }
-        return $this->responsePrototype->withStatus(403);
+        return ($this->responseFactory)()->withStatus(403);
     }
 }

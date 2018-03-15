@@ -2,6 +2,47 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 0.4.0 - 2018-03-15
+
+### Added
+
+- [#16](https://github.com/zendframework/zend-expressive-authorization/pull/16) adds
+  support for PSR-15.
+
+### Changed
+
+- [#18](https://github.com/zendframework/zend-expressive-authorization/pull/18)
+  changes the constructor of the `Zend\Expressive\Authorization\AuthorizationMiddleware`
+  class to accept a callable `$responseFactory` instead of a
+  `Psr\Http\Message\ResponseInterface` response prototype. The
+  `$responseFactory` should produce a `ResponseInterface` implementation when
+  invoked.
+
+- [#18](https://github.com/zendframework/zend-expressive-authorization/pull/18)
+  updates the `AuthorizationMiddlewareFactory` to no longer use
+  `Zend\Expressive\Authentication\ResponsePrototypeTrait`, and instead always
+  depend on the `Psr\Http\Message\ResponseInterface` service to correctly return
+  a PHP callable capable of producing a `ResponseInterface` instance.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- [#19](https://github.com/zendframework/zend-expressive-authorization/pull/19)
+  removes the file `config/authorization.php` and merges its contents into the
+  `Zend\Expressive\Authorization\ConfigProvider` class.
+
+- [#16](https://github.com/zendframework/zend-expressive-authorization/pull/16) and
+  [#11](https://github.com/zendframework/zend-expressive-authorization/pull/11)
+  remove support for http-interop/http-middleware and
+  http-interop/http-server-middleware.
+
+### Fixed
+
+- Nothing.
+
 ## 0.3.0 - 2017-11-28
 
 ### Added
