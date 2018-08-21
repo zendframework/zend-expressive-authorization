@@ -47,7 +47,7 @@ class AuthorizationMiddleware implements MiddlewareInterface
             return ($this->responseFactory)()->withStatus(401);
         }
 
-        foreach ($user->getUserRoles() as $role) {
+        foreach ($user->getRoles() as $role) {
             if ($this->authorization->isGranted($role, $request)) {
                 return $handler->handle($request);
             }
