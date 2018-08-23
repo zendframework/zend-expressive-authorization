@@ -15,15 +15,13 @@ use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Zend\Expressive\Authentication\DefaultUser;
 use Zend\Expressive\Authentication\UserInterface;
-use Zend\Expressive\Authentication\UserRepository\UserTrait;
 use Zend\Expressive\Authorization\AuthorizationInterface;
 use Zend\Expressive\Authorization\AuthorizationMiddleware;
 
 class AuthorizationMiddlewareTest extends TestCase
 {
-    use UserTrait;
-
     /** @var AuthorizationInterface|ObjectProphecy */
     private $authorization;
 
@@ -122,5 +120,10 @@ class AuthorizationMiddlewareTest extends TestCase
         );
 
         $this->assertSame($this->responsePrototype->reveal(), $response);
+    }
+
+    private function generateUser(string $identity, array $roles = []) : DefaultUser
+    {
+        return new DefaultUser($identity, $roles);
     }
 }

@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc04f5610265ead13c71a7e2324a2746",
+    "content-hash": "a35da0f905e72dbae7d3fa2bd1708081",
     "packages": [
         {
             "name": "psr/container",
@@ -213,16 +213,16 @@
         },
         {
             "name": "zendframework/zend-expressive-authentication",
-            "version": "0.4.0",
+            "version": "0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-expressive-authentication.git",
-                "reference": "2fea5529d78cddc26921e46e87ea886ccb8cc7d1"
+                "reference": "486cb20dc81df864ee4706e8d191fc87ad0af91b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-expressive-authentication/zipball/2fea5529d78cddc26921e46e87ea886ccb8cc7d1",
-                "reference": "2fea5529d78cddc26921e46e87ea886ccb8cc7d1",
+                "url": "https://api.github.com/repos/zendframework/zend-expressive-authentication/zipball/486cb20dc81df864ee4706e8d191fc87ad0af91b",
+                "reference": "486cb20dc81df864ee4706e8d191fc87ad0af91b",
                 "shasum": ""
             },
             "require": {
@@ -274,7 +274,7 @@
                 "zend-expressive",
                 "zf"
             ],
-            "time": "2018-03-15T17:19:40+00:00"
+            "time": "2018-05-23T16:58:27+00:00"
         }
     ],
     "packages-dev": [
@@ -1082,17 +1082,6 @@
         {
             "name": "roave/security-advisories",
             "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "1b2f1f59ff8fc933e4d61ee45214ff3228e20c75"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/1b2f1f59ff8fc933e4d61ee45214ff3228e20c75",
-                "reference": "1b2f1f59ff8fc933e4d61ee45214ff3228e20c75",
-                "shasum": ""
-            },
             "conflict": {
                 "3f/pygmentize": "<1.2",
                 "adodb/adodb-php": "<5.20.6",
