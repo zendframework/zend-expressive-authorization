@@ -8,16 +8,6 @@ and [PSR-7](http://www.php-fig.org/psr/psr-7/) applications for authorize
 specific routes based on [ACL](https://en.wikipedia.org/wiki/Access_control_list)
 or [RBAC](https://en.wikipedia.org/wiki/Role-based_access_control) systems.
 
-## WORK IN PROGRESS
-
-This repository contains a **work in progress** project for building an
-authorization module for *Expressive* and *PSR-7* applications.
-
-Read the RFC proposal in the [forum](https://discourse.zendframework.com/t/rfc-authorization-module-for-expressive-and-psr-7/239)
-for more information.
-
-**Please, don't use this code in a production environment!**
-
 ## Installation
 
 You can install the *zend-expressive-authorization* library with composer:
@@ -35,9 +25,3 @@ $ mkdocs build
 ```
 
 You may also [browse the documentation online](https://docs.zendframework.com/zend-expressive-authorization/).
-
-## Configuration
-
-
-
-## Usage
