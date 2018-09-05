@@ -1,51 +1,63 @@
 # Authorization adapters
 
-You can choose an authorization adapter through the service container
-configuration.
+You can configure the authorization adapter to use via your service container
+configuration. Specifically, you can either map the service name
+`Zend\Expressive\Authorization\AuthorizationInterface` to a factory, or alias it
+to the appropriate service.
 
-You need to specify the service for authentication using the name
-`Zend\Expressive\Authorization\AuthorizationInterface`.
+For instance, using [Expressive container configuration](https://docs.zendframework.com/zend-expressive/v3/features/container/config/),
+you could select the zend-expressive-authorization-acl adapter in either of the
+following ways:
 
-For instance, using [zend-servicemanager](https://github.com/zendframework/zend-servicemanager)
-you can easily configure the authorization using aliases. Below is an example of
-configuration using an ACL or RBAC adapter.
+- Using an alias:
+  ```php
+  use Zend\Expressive\Authorization\AuthorizationInterface;
+  use Zend\Expressive\Authorization\Acl\ZendAcl;
+  
+  return [
+      'dependencies' => [
+          // Using an alias:
+          'aliases' => [
+              AuthorizationInterface::class => ZendAcl::class,
+          ],
+      ],
+  ];
+  ```
 
+- Mapping to a factory:
+  ```php
+  use Zend\Expressive\Authorization\AuthorizationInterface;
+  use Zend\Expressive\Authorization\Acl\ZendAclFactory;
+  
+  return [
+      'dependencies' => [
+          // Using an alias:
+          'factories' => [
+              AuthorizationInterface::class => ZendAclFactory::class,
+          ],
+      ],
+  ];
+  ```
 
-```
-use Zend\Expressive\Authorization\AuthorizationInterface;
-use Zend\Expressive\Authorization\Acl\ZendAcl;
-use Zend\Expressive\Authorization\Rbac\ZendRbac;
+We provide two different adapters.
 
-return [
-    // ...
-    'dependencies' => [
-        // ...
-        'aliases' => [
-            // ...
-            AuthorizationInterface::class => ZendAcl::class,
-            // or AuthorizationInterface::class => ZendRbac::class
-        ]
-    ]
-];
-```
+- The RBAC adapter is provided by [zend-expressive-authorization-rbac](https://github.com/zendframework/zend-expressive-authorization-rbac).
+- The ACL adapter is provided by [zend-expressive-authorization-acl](https://github.com/zendframework/zend-expressive-authorization-acl/).
 
-The RBAC adapter is managed by [zend-expressive-authorization-rbac](https://github.com/zendframework/zend-expressive-authorization-rbac)
-and ACL is managed by [zend-expressive-authorization-acl](https://github.com/zendframework/zend-expressive-authorization-acl/)
-library.
-
-If you want to use one of these adapters, you need to install via composer:
+Each adapter is installable via [Composer](https://getcomposer.org):
 
 ```bash
-composer require zendframework/zend-expressive-authorization-rbac
+$ composer require zendframework/zend-expressive-authorization-rbac
 # or
-composer require zendframework/zend-expressive-authorization-acl
+$ composer require zendframework/zend-expressive-authorization-acl
 ```
 
-In both these adapters, we used the **route name** as resource. This means, you
-can specify if a role is authorized to access a specific HTTP route or not.
-This is just a general idea for implementing an authorization system. You can
-create your own system implementing the [AuthorizationInterface](https://github.com/zendframework/zend-expressive-authorization/blob/master/src/AuthorizationInterface.php),
-as reported above.
+In each adapter, we use the **route name** as the resource. This means you
+can specify if a role is authorized to access a specific HTTP _route_.
+However, this is just one approach to implementing an authorization system; you
+can create your own system by implementing the
+[AuthorizationInterface](https://github.com/zendframework/zend-expressive-authorization/blob/master/src/AuthorizationInterface.php).
 
-For more information about these adapters please read the [RBAC documentation](https://docs.zendframework.com/zend-expressive-authorization-rbac/)
+For more information on the adapters, please read the
+[RBAC documentation](https://docs.zendframework.com/zend-expressive-authorization-rbac/)
 and the [ACL documentation](https://docs.zendframework.com/zend-expressive-authorization-acl/).
