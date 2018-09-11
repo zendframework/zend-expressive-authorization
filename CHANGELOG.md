@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.0.0 - 2018-09-11
+
+### Added
+
+- Usage of [zend-expressive-authentication](https://github.com/zendframework/zend-expressive-authentication)
+  ^1.0.
+
+### Changed
+
+-- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 0.4.0 - 2018-03-15
 
 ### Added
