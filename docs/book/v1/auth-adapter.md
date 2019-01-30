@@ -31,7 +31,7 @@ following ways:
   
   return [
       'dependencies' => [
-          // Using an alias:
+          // Using a factory:
           'factories' => [
               AuthorizationInterface::class => ZendAclFactory::class,
           ],
