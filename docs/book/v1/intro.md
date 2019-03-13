@@ -1,4 +1,4 @@
-# Zend Expressive Authorization
+# Introduction
 
 This component provides authorization middleware for [PSR-7](https://www.php-fig.org/psr/psr-7/)
 and [PSR-15](https://www.php-fig.org/psr/psr-15/) applications.
