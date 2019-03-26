@@ -1,11 +1,10 @@
 docs_dir: docs/book
 site_dir: docs/html
 pages:
-    - index.md
+    - Home: index.md
     - Introduction: v1/intro.md
     - Reference:
-        - 'Authorization adapter': v1/auth-adapter.md
-site_name: Expressive Authorization middleware
+        - 'Authorization adapters': v1/auth-adapter.md
+site_name: zend-expressive-authorization
 site_description: 'Authorization middleware for Expressive and PSR-7 applications'
 repo_url: 'https://github.com/zendframework/zend-expressive-authorization'
-copyright: 'Copyright (c) 2017-2018 <a href="https://www.zend.com/">Zend Technologies USA Inc.</a>'
