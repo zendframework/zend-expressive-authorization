@@ -7,11 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Authorization middleware for Expressive and PSR-7 applications">  
-    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <link rel="shortcut icon" href="//img/favicon.ico">
 
-    <title>Authorization adapters - zend-expressive-authorization - Zend Framework Docs</title>
+    <title>zend-expressive-authorization - Zend Framework Docs</title>
 
-    <link rel="stylesheet" href="../../css/styles-f3b53f5ceb.css">
+    <link rel="stylesheet" href="//css/styles-f3b53f5ceb.css">
 </head>
 <body id="page-top">
 
@@ -31,7 +31,7 @@
             
             <span class="navbar-brand">
                 <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
-                    <img src="../../img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                    <img src="//img/zend-framework-logo.svg" height="28" alt="Zend Framework">
                 </a>
             </span>
         </div>
@@ -66,7 +66,7 @@
                     
     <div class="subnavigation hidden-print">
         <h4 class="subnavigation__title">
-            <a href="../..">zend-expressive-authorization</a>
+            <a href="/.">zend-expressive-authorization</a>
         </h4>
 
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
@@ -75,7 +75,7 @@
             
                 
                     <li class="subnavigation__list-item ">
-                        <a href="../intro/" class="subnavigation__link">Introduction</a>
+                        <a href="/v1/intro/" class="subnavigation__link">Introduction</a>
                     </li>
                 
             
@@ -85,8 +85,8 @@
                         <ul class="subnavigation__list">
                             
                                 
-    <li class="subnavigation__list-item subnavigation__list-item--active">
-        <a href="./" class="subnavigation__link">Authorization adapters</a>
+    <li class="subnavigation__list-item ">
+        <a href="/v1/auth-adapter/" class="subnavigation__link">Authorization adapters</a>
     </li>
 
                             
@@ -163,128 +163,18 @@
             <div class="col-md-9 col-xs-12 content" role="main">
             <!-- content:begin -->
                 
-                    <ol class="breadcrumb" role="navigation" aria-label="breadcrumbs navigation">
-    <li><a href="https://framework.zend.com/">Home</a></li>
 
-    
-        <li><a href="https://docs.zendframework.com/">Documentation</a></li>
+<h1 class="content__title">404</h1>
+<blockquote>
+    <h3>Something went wrong!</h3>
+    <p>
+        We're sorry, but the page you are looking for does not exist.
+    </p>
+</blockquote>
 
-        
-            <li><a href="../..">zend-expressive-authorization</a></li>
-
-            
-                
-                    <li>Reference</li>
-                
-            
-
-            <li class="active">Authorization adapters</li>
-        
-    
-</ol>
+<a href="/" class="btn btn-default" role="button">Go to homepage</a>
 
 
-    
-        <h2 class="chapter__headline">Reference</h2>
-    
-
-    
-    
-
-    
-    
-
-
-    <h1 id="authorization-adapters">Authorization adapters</h1>
-<p>You can configure the authorization adapter to use via your service container
-configuration. Specifically, you can either map the service name
-<code>Zend\Expressive\Authorization\AuthorizationInterface</code> to a factory, or alias it
-to the appropriate service.</p>
-<p>For instance, using <a href="https://docs.zendframework.com/zend-expressive/v3/features/container/config/">Expressive container configuration</a>,
-you could select the zend-expressive-authorization-acl adapter in either of the
-following ways:</p>
-<ul>
-<li>
-<p>Using an alias:
-  <pre class="codehilite"><code class="language-php">use Zend\Expressive\Authorization\AuthorizationInterface;
-use Zend\Expressive\Authorization\Acl\ZendAcl;
-
-return [
-    'dependencies' =&gt; [
-        // Using an alias:
-        'aliases' =&gt; [
-            AuthorizationInterface::class =&gt; ZendAcl::class,
-        ],
-    ],
-];</code></pre></p>
-</li>
-<li>
-<p>Mapping to a factory:
-  <pre class="codehilite"><code class="language-php">use Zend\Expressive\Authorization\AuthorizationInterface;
-use Zend\Expressive\Authorization\Acl\ZendAclFactory;
-
-return [
-    'dependencies' =&gt; [
-        // Using a factory:
-        'factories' =&gt; [
-            AuthorizationInterface::class =&gt; ZendAclFactory::class,
-        ],
-    ],
-];</code></pre></p>
-</li>
-</ul>
-<p>We provide two different adapters.</p>
-<ul>
-<li>The RBAC adapter is provided by <a href="https://github.com/zendframework/zend-expressive-authorization-rbac">zend-expressive-authorization-rbac</a>.</li>
-<li>The ACL adapter is provided by <a href="https://github.com/zendframework/zend-expressive-authorization-acl/">zend-expressive-authorization-acl</a>.</li>
-</ul>
-<p>Each adapter is installable via <a href="https://getcomposer.org">Composer</a>:</p>
-<pre class="codehilite"><code class="language-bash">$ composer require zendframework/zend-expressive-authorization-rbac
-# or
-$ composer require zendframework/zend-expressive-authorization-acl</code></pre>
-
-<p>In each adapter, we use the <strong>route name</strong> as the resource. This means you
-can specify if a role is authorized to access a specific HTTP <em>route</em>.
-However, this is just one approach to implementing an authorization system; you
-can create your own system by implementing the
-<a href="https://github.com/zendframework/zend-expressive-authorization/blob/master/src/AuthorizationInterface.php">AuthorizationInterface</a>.</p>
-<p>For more information on the adapters, please read the
-<a href="https://docs.zendframework.com/zend-expressive-authorization-rbac/">RBAC documentation</a>
-and the <a href="https://docs.zendframework.com/zend-expressive-authorization-acl/">ACL documentation</a>.</p>
-
-
-
-    <nav>
-    <ul class="page-nav hidden-print">
-
-        
-        <li class="page-nav__item">
-            
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../intro/">
-                    <i class="fa fa-chevron-left"></i> Previous
-                </a>
-            
-        </li>
-
-        
-        <li class="page-nav__item">
-            
-        </li>
-    </ul>
-</nav>
-
-
-
-    <div class="help-wanted">
-        <p>
-            Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-expressive-authorization/edit/master/docs/book/v1/auth-adapter.md" target="_blank" class="help-wanted__link">
-                Edit this page on GitHub!
-            </a>
-        </p>
-    </div>
-
-                
             <!-- content:end -->
             </div>
             <div class="col-md-3 col-xs-12 sidebar">
@@ -300,7 +190,7 @@ and the <a href="https://docs.zendframework.com/zend-expressive-authorization-ac
                     
     <div class="subnavigation hidden-print">
         <h4 class="subnavigation__title">
-            <a href="../..">zend-expressive-authorization</a>
+            <a href="/.">zend-expressive-authorization</a>
         </h4>
 
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
@@ -309,7 +199,7 @@ and the <a href="https://docs.zendframework.com/zend-expressive-authorization-ac
             
                 
                     <li class="subnavigation__list-item ">
-                        <a href="../intro/" class="subnavigation__link">Introduction</a>
+                        <a href="/v1/intro/" class="subnavigation__link">Introduction</a>
                     </li>
                 
             
@@ -319,8 +209,8 @@ and the <a href="https://docs.zendframework.com/zend-expressive-authorization-ac
                         <ul class="subnavigation__list">
                             
                                 
-    <li class="subnavigation__list-item subnavigation__list-item--active">
-        <a href="./" class="subnavigation__link">Authorization adapters</a>
+    <li class="subnavigation__list-item ">
+        <a href="/v1/auth-adapter/" class="subnavigation__link">Authorization adapters</a>
     </li>
 
                             
@@ -399,11 +289,11 @@ and the <a href="https://docs.zendframework.com/zend-expressive-authorization-ac
 </footer>
 
     <script>
-        var base_url = '../..',
+        var base_url = '/',
             siteName = 'zend-expressive-authorization';
     </script>
-    <script src="../../js/scripts-8d7ae56abf.js"></script>
-        <script src="../../search/main.js"></script>
+    <script src="//js/scripts-8d7ae56abf.js"></script>
+        <script src="/search/main.js"></script>
 
     
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
