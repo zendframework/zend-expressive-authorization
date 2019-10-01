@@ -233,45 +233,44 @@ to the appropriate service.</p>
 you could select the zend-expressive-authorization-acl adapter in either of the
 following ways:</p>
 <ul>
-<li>
-<p>Using an alias:
-  <pre class="codehilite"><code class="language-php">use Zend\Expressive\Authorization\AuthorizationInterface;
-use Zend\Expressive\Authorization\Acl\ZendAcl;
-
-return [
-    'dependencies' =&gt; [
-        // Using an alias:
-        'aliases' =&gt; [
-            AuthorizationInterface::class =&gt; ZendAcl::class,
-        ],
-    ],
-];</code></pre></p>
-</li>
-<li>
-<p>Mapping to a factory:
-  <pre class="codehilite"><code class="language-php">use Zend\Expressive\Authorization\AuthorizationInterface;
-use Zend\Expressive\Authorization\Acl\ZendAclFactory;
-
-return [
-    'dependencies' =&gt; [
-        // Using a factory:
-        'factories' =&gt; [
-            AuthorizationInterface::class =&gt; ZendAclFactory::class,
-        ],
-    ],
-];</code></pre></p>
-</li>
+<li>Using an alias:
+  ```php
+  use Zend\Expressive\Authorization\AuthorizationInterface;
+  use Zend\Expressive\Authorization\Acl\ZendAcl;</li>
 </ul>
+<p>return [
+      'dependencies' =&gt; [
+          // Using an alias:
+          'aliases' =&gt; [
+              AuthorizationInterface::class =&gt; ZendAcl::class,
+          ],
+      ],
+  ];
+  ```</p>
+<ul>
+<li>Mapping to a factory:
+  ```php
+  use Zend\Expressive\Authorization\AuthorizationInterface;
+  use Zend\Expressive\Authorization\Acl\ZendAclFactory;</li>
+</ul>
+<p>return [
+      'dependencies' =&gt; [
+          // Using a factory:
+          'factories' =&gt; [
+              AuthorizationInterface::class =&gt; ZendAclFactory::class,
+          ],
+      ],
+  ];
+  ```</p>
 <p>We provide two different adapters.</p>
 <ul>
 <li>The RBAC adapter is provided by <a href="https://github.com/zendframework/zend-expressive-authorization-rbac">zend-expressive-authorization-rbac</a>.</li>
 <li>The ACL adapter is provided by <a href="https://github.com/zendframework/zend-expressive-authorization-acl/">zend-expressive-authorization-acl</a>.</li>
 </ul>
 <p>Each adapter is installable via <a href="https://getcomposer.org">Composer</a>:</p>
-<pre class="codehilite"><code class="language-bash">$ composer require zendframework/zend-expressive-authorization-rbac
+<p> <pre class=codehilite><code class=language-bash>$ composer require zendframework/zend-expressive-authorization-rbac
 # or
-$ composer require zendframework/zend-expressive-authorization-acl</code></pre>
-
+$ composer require zendframework/zend-expressive-authorization-acl</code></pre></p>
 <p>In each adapter, we use the <strong>route name</strong> as the resource. This means you
 can specify if a role is authorized to access a specific HTTP <em>route</em>.
 However, this is just one approach to implementing an authorization system; you
@@ -309,7 +308,7 @@ and the <a href="https://docs.zendframework.com/zend-expressive-authorization-ac
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-expressive-authorization/edit/master/docs/v1/auth-adapter.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-expressive-authorization/edit/master/docs/book/v1/auth-adapter.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>
