@@ -2,7 +2,7 @@
 
 > ## Repository abandoned 2019-12-31
 >
-> This repository has moved to mezzio/mezzio-authorization.
+> This repository has moved to [mezzio/mezzio-authorization](https://github.com/mezzio/mezzio-authorization).
 
 [![Build Status](https://secure.travis-ci.org/zendframework/zend-expressive-authorization.svg?branch=master)](https://secure.travis-ci.org/zendframework/zend-expressive-authorization)
 [![Coverage Status](https://coveralls.io/repos/github/zendframework/zend-expressive-authorization/badge.svg?branch=master)](https://coveralls.io/github/zendframework/zend-expressive-authorization?branch=master)
